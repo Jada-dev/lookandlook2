@@ -1,8 +1,9 @@
-# TikTok Clone
+# Look and Look
 
-A Tiktok App- Works on Android & iOS! 
+Suresh Look and Look
 
 ## Features
+
 - Authentication with Email & Password
 - Uploading Videos with Caption
 - Compressing Videos
@@ -15,5 +16,3 @@ A Tiktok App- Works on Android & iOS!
 - Following Users
 - Displaying Followers, Following, Likes & Posts of User
 - TikTok Like UI
-
-
