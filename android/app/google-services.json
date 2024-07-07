@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "443378053938",
+    "project_id": "newlooknlook",
+    "storage_bucket": "newlooknlook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443378053938:android:b6986d695cb6efeb925d2b",
+        "android_client_info": {
+          "package_name": "com.looknlook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoqrgX0JAtvEFhV98hxqFh9xZYcv4kgMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
