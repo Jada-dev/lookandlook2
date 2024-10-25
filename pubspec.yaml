@@ -29,7 +29,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cached_network_image: ^3.2.2
   cloud_firestore: ^4.10.1
   cupertino_icons: ^1.0.5
@@ -44,6 +43,9 @@ dependencies:
   google_fonts: ^6.2.1
   image_cropper: ^7.0.5
   emoji_choose: ^0.0.2
+  geoflutterfire2: ^2.3.15
+  shared_preferences: ^2.0.0
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_lints: ^1.0.0

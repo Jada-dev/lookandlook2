@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/views/add_video_screen.dart';
 import 'package:tiktok_tutorial/views/chat_screen.dart';
@@ -17,6 +18,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double? userLatitude;
+  double? userLongitude;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserLocation();
+  }
+
+  Future<void> _loadUserLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userLatitude = prefs.getDouble('latitude');
+      userLongitude = prefs.getDouble('longitude');
+    });
+  }
+
   int pageIdx = 0;
   getPageMethod(int index) {
     List pages = [

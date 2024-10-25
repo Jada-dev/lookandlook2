@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/controllers/video_controller.dart';
 import 'package:tiktok_tutorial/views/comment_screen.dart';
@@ -13,6 +16,8 @@ class VideoScreen extends StatelessWidget {
   VideoScreen({Key? key, required this.initialIndex}) : super(key: key);
 
   final VideoController videoController = Get.put(VideoController());
+
+  final geo = GeoFlutterFire();
 
   buildProfile(String profilePhoto) {
     return SizedBox(
@@ -70,6 +75,12 @@ class VideoScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> saveLocation(double latitude, double longitude) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('latitude', latitude);
+    await prefs.setDouble('longitude', longitude);
   }
 
   @override
