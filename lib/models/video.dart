@@ -12,20 +12,23 @@ class Video {
   String videoUrl;
   String thumbnail;
   String profilePhoto;
+  double latitude;
+  double longtitude;
 
-  Video({
-    required this.username,
-    required this.uid,
-    required this.id,
-    required this.likes,
-    required this.commentCount,
-    required this.shareCount,
-    required this.songName,
-    required this.caption,
-    required this.videoUrl,
-    required this.profilePhoto,
-    required this.thumbnail,
-  });
+  Video(
+      {required this.username,
+      required this.uid,
+      required this.id,
+      required this.likes,
+      required this.commentCount,
+      required this.shareCount,
+      required this.songName,
+      required this.caption,
+      required this.videoUrl,
+      required this.profilePhoto,
+      required this.thumbnail,
+      required this.latitude,
+      required this.longtitude});
 
   Map<String, dynamic> toJson() => {
         "username": username,
@@ -39,23 +42,26 @@ class Video {
         "caption": caption,
         "videoUrl": videoUrl,
         "thumbnail": thumbnail,
+        "latitude": latitude,
+        "longtitude": longtitude
       };
 
   static Video fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Video(
-      username: snapshot['username'],
-      uid: snapshot['uid'],
-      id: snapshot['id'],
-      likes: snapshot['likes'],
-      commentCount: snapshot['commentCount'],
-      shareCount: snapshot['shareCount'],
-      songName: snapshot['songName'],
-      caption: snapshot['caption'],
-      videoUrl: snapshot['videoUrl'],
-      profilePhoto: snapshot['profilePhoto'],
-      thumbnail: snapshot['thumbnail'],
-    );
+        username: snapshot['username'],
+        uid: snapshot['uid'],
+        id: snapshot['id'],
+        likes: snapshot['likes'],
+        commentCount: snapshot['commentCount'],
+        shareCount: snapshot['shareCount'],
+        songName: snapshot['songName'],
+        caption: snapshot['caption'],
+        videoUrl: snapshot['videoUrl'],
+        profilePhoto: snapshot['profilePhoto'],
+        thumbnail: snapshot['thumbnail'],
+        latitude: snapshot['latitude'],
+        longtitude: snapshot['longtitude']);
   }
 }

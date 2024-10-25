@@ -49,18 +49,20 @@ class UploadVideoController extends GetxController {
       String thumbnail = await _uploadImageToStorage("Video $len", videoPath);
 
       Video video = Video(
-        username: (userDoc.data()! as Map<String, dynamic>)['name'],
-        uid: uid,
-        id: "Video $len",
-        likes: [],
-        commentCount: 0,
-        shareCount: 0,
-        songName: songName,
-        caption: caption,
-        videoUrl: videoUrl,
-        profilePhoto: (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
-        thumbnail: thumbnail,
-      );
+          username: (userDoc.data()! as Map<String, dynamic>)['name'],
+          uid: uid,
+          id: "Video $len",
+          likes: [],
+          commentCount: 0,
+          shareCount: 0,
+          songName: songName,
+          caption: caption,
+          videoUrl: videoUrl,
+          profilePhoto:
+              (userDoc.data()! as Map<String, dynamic>)['profilePhoto'],
+          thumbnail: thumbnail,
+          latitude: 23344.56,
+          longtitude: 345566.67);
 
       await fireStore.collection('videos').doc('Video $len').set(
             video.toJson(),

@@ -5,6 +5,9 @@ import 'package:get/instance_manager.dart';
 import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/controllers/profile_controller.dart';
 import 'package:tiktok_tutorial/helper/dialog_helper.dart';
+import 'package:tiktok_tutorial/views/home_screen.dart';
+import 'package:tiktok_tutorial/views/settings_screen.dart';
+import 'package:tiktok_tutorial/views/video_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -42,8 +45,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               leading: const Icon(
                 Icons.person_add_alt_1_outlined,
               ),
-              actions: const [
-                Icon(Icons.more_horiz),
+              actions: [
+                InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SettingsScreen(),
+                      ));
+                    },
+                    child: Icon(Icons.more_horiz)),
               ],
               title: Text(
                 controller.user['name'],
@@ -209,9 +218,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             itemBuilder: (context, index) {
                               String thumbnail =
                                   controller.user['thumbnails'][index];
-                              return CachedNetworkImage(
-                                imageUrl: thumbnail,
-                                fit: BoxFit.cover,
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomeScreen(videoInitialIndex: index),
+                                  ));
+                                },
+                                child: CachedNetworkImage(
+                                  imageUrl: thumbnail,
+                                  fit: BoxFit.cover,
+                                ),
                               );
                             },
                           )

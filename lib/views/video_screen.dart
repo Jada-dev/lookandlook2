@@ -9,7 +9,8 @@ import 'package:tiktok_tutorial/widgets/circle_animation.dart';
 import 'package:tiktok_tutorial/widgets/video_player_iten.dart';
 
 class VideoScreen extends StatelessWidget {
-  VideoScreen({Key? key}) : super(key: key);
+  final int initialIndex;
+  VideoScreen({Key? key, required this.initialIndex}) : super(key: key);
 
   final VideoController videoController = Get.put(VideoController());
 
@@ -79,7 +80,8 @@ class VideoScreen extends StatelessWidget {
       body: Obx(() {
         return PageView.builder(
           itemCount: videoController.videoList.length,
-          controller: PageController(initialPage: 0, viewportFraction: 1),
+          controller:
+              PageController(initialPage: initialIndex, viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = videoController.videoList[index];
@@ -113,7 +115,7 @@ class VideoScreen extends StatelessWidget {
                                     data.username,
                                     style: const TextStyle(
                                       fontSize: 20,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -121,7 +123,7 @@ class VideoScreen extends StatelessWidget {
                                     data.caption,
                                     style: const TextStyle(
                                       fontSize: 15,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                     ),
                                   ),
                                   Row(
@@ -129,13 +131,13 @@ class VideoScreen extends StatelessWidget {
                                       const Icon(
                                         Icons.music_note,
                                         size: 15,
-                                        color: Colors.black,
+                                        color: Colors.white,
                                       ),
                                       Text(
                                         data.songName,
                                         style: const TextStyle(
                                           fontSize: 15,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
