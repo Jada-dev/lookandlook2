@@ -10,8 +10,10 @@ import 'package:tiktok_tutorial/views/video_screen.dart';
 import 'package:tiktok_tutorial/widgets/custom_icon.dart';
 
 class HomeScreen extends StatefulWidget {
-  final int? videoInitialIndex;
-  const HomeScreen({Key? key, this.videoInitialIndex}) : super(key: key);
+int index;
+  final String? videoInitialIndex;
+
+   HomeScreen({Key? key, this.videoInitialIndex,this.index = 0,}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    pageIdx =widget.index ;
     _loadUserLocation();
   }
 
@@ -39,12 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
   getPageMethod(int index) {
     List pages = [
       VideoScreen(
-        initialIndex: widget.videoInitialIndex ?? 0,
+        videoId:widget. videoInitialIndex ?? "null",
       ),
       SearchScreen(),
       const AddVideoScreen(),
-      const ChatScreen(),
-      ProfileScreen(uid: authController.user.uid),
+    
+      ProfileScreen(uid:  authController.user.uid),
     ];
     return pages[index];
   }
@@ -74,12 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BottomNavigationBarItem(
               icon: CustomIcon(),
-              label: '',
+              label: 'Add',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.message, size: 30),
-              label: 'Messages',
-            ),
+           
             BottomNavigationBarItem(
               icon: Icon(Icons.person, size: 30),
               label: 'Profile',

@@ -58,7 +58,7 @@ class AuthController extends GetxController {
       Get.snackbar('Profile Picture',
           'You have successfully selected your profile picture!');
       DialogHelper.hideLoading();
-      Get.off(() => const HomeScreen());
+      Get.off(() =>  HomeScreen());
     }
   }
 
@@ -117,7 +117,7 @@ class AuthController extends GetxController {
         if (cred.additionalUserInfo!.isNewUser) {
           Get.offAll(() => const UpdateImageScreen());
         } else {
-          Get.offAll(() => const HomeScreen());
+          Get.offAll(() =>  HomeScreen());
         }
       } else {
         DialogHelper.hideLoading();
@@ -137,7 +137,7 @@ class AuthController extends GetxController {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email.trim(), password: password.trim());
         DialogHelper.hideLoading();
-        Get.offAll(() => const HomeScreen());
+        Get.offAll(() =>  HomeScreen());
       } else {
         DialogHelper.hideLoading();
         Get.snackbar('Error Logging in', 'Please enter all the fields',

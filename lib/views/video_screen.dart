@@ -6,14 +6,16 @@ import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/controllers/video_controller.dart';
 import 'package:tiktok_tutorial/views/comment_screen.dart';
 import 'package:get/get.dart';
-
+import 'package:share_plus/share_plus.dart';
+import 'package:tiktok_tutorial/views/home_screen.dart';
+import 'package:tiktok_tutorial/views/profile_screen.dart';
 import 'package:tiktok_tutorial/widgets/circle_animation.dart';
 
 import 'package:tiktok_tutorial/widgets/video_player_iten.dart';
 
 class VideoScreen extends StatelessWidget {
-  final int initialIndex;
-  VideoScreen({Key? key, required this.initialIndex}) : super(key: key);
+  final String videoId;
+  VideoScreen({Key? key, required this.videoId}) : super(key: key);
 
   final VideoController videoController = Get.put(VideoController());
 
@@ -92,7 +94,7 @@ class VideoScreen extends StatelessWidget {
         return PageView.builder(
           itemCount: videoController.videoList.length,
           controller:
-              PageController(initialPage: initialIndex, viewportFraction: 1),
+              PageController(initialPage: videoId == "null" ?0: videoController.videoList.indexWhere((element) => element.id ==videoId,), viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = videoController.videoList[index];
@@ -122,12 +124,19 @@ class VideoScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    data.username,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
+                                  GestureDetector(
+                                    onTap: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                        return ProfileScreen(uid:data.uid);
+                                      },));
+                                    },
+                                    child: Text(
+                                      data.username,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Text(
@@ -160,7 +169,7 @@ class VideoScreen extends StatelessWidget {
                           ),
                           Container(
                             width: 100,
-                            margin: EdgeInsets.only(top: size.height / 5),
+                            margin: EdgeInsets.only(top: size.height / 4),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -220,11 +229,19 @@ class VideoScreen extends StatelessWidget {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () {},
-                                      child: const Icon(
-                                        Icons.reply,
-                                        size: 40,
-                                        color: Colors.white,
+                                      onTap: () {
+                                        print("fasdfasfd");
+
+                                        Share.share('${data.videoUrl}', subject: '${data.caption}');
+                                      },
+                                      child: Transform(
+                                        alignment: Alignment.center,
+            transform: Matrix4.rotationY(3.14), 
+                                        child: const Icon(
+                                          Icons.reply,
+                                          size: 40,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(height: 7),
@@ -237,9 +254,7 @@ class VideoScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                CircleAnimation(
-                                  child: buildMusicAlbum(data.profilePhoto),
-                                ),
+                               
                               ],
                             ),
                           ),

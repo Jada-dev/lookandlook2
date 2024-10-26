@@ -125,6 +125,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/views/confirm_screen.dart';
 
 class AddVideoScreen extends StatelessWidget {
@@ -152,6 +153,7 @@ class AddVideoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       body: Padding(
         padding: const EdgeInsets.only(right: 30, bottom: 40),
         child: Align(
@@ -165,12 +167,12 @@ class AddVideoScreen extends StatelessWidget {
                 onTap: () => pickVideo(ImageSource.camera, context),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.red, // Red background for camera icon
+                    color: buttonColor, // Red background for camera icon
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(
                         color: Colors.white, width: 2), // White border
                   ),
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(8),
                   child: const Icon(
                     Icons.camera_alt,
                     color: Colors.white,
@@ -178,7 +180,7 @@ class AddVideoScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 30), // Space between icons
+              const SizedBox(width: 60), // Space between icons
 
               // Gallery Icon
               GestureDetector(
@@ -189,14 +191,15 @@ class AddVideoScreen extends StatelessWidget {
                         .grey.shade200, // Light background for gallery icon
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding: const EdgeInsets.all(20),
-                  child: const Icon(
+                  padding: const EdgeInsets.all(8),
+                  child:  Icon(
                     Icons.photo_library, // Gallery icon
-                    color: Colors.black,
-                    size: 40,
+                    color: Colors.grey[700],
+                    size: 30,
                   ),
                 ),
               ),
+               const SizedBox(width: 20),
             ],
           ),
         ),

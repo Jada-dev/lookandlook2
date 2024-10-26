@@ -17,7 +17,7 @@ class UpdateImageScreen extends StatelessWidget {
         actions: [
           TextButton(
               onPressed: () {
-                Get.off(() => const HomeScreen());
+                Get.off(() =>  HomeScreen());
               },
               child: const Text(
                 'Skip ->',

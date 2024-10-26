@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_tutorial/helper/constants.dart';
+import 'package:tiktok_tutorial/helper/dialog_helper.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -38,7 +40,8 @@ class SettingsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton(
               onPressed: () {
-                // Sign out action
+               DialogHelper.showLoading();
+                                    authController.signOut();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.redAccent,

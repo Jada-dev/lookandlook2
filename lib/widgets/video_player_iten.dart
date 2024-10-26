@@ -91,8 +91,15 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+    ..addListener(() {
+        if (videoPlayerController.value.position == videoPlayerController.value.duration) {
+          videoPlayerController.seekTo(Duration.zero);
+          videoPlayerController.play();
+        }
+      })
       ..initialize().then((value) {
+        
         videoPlayerController.play();
         videoPlayerController.setVolume(1);
         setState(() {}); // Refresh UI after video initialization

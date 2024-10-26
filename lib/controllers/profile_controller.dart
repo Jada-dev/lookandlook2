@@ -14,14 +14,14 @@ class ProfileController extends GetxController {
   }
 
   getUserData() async {
-    List<String> thumbnails = [];
+    List<Map<String,String>> thumbnails = [];
     var myVideos = await fireStore
         .collection('videos')
         .where('uid', isEqualTo: _uid.value)
         .get();
 
     for (int i = 0; i < myVideos.docs.length; i++) {
-      thumbnails.add((myVideos.docs[i].data() as dynamic)['thumbnail']);
+      thumbnails.add({"videoId":(myVideos.docs[i].data() as dynamic)["id"],"value":(myVideos.docs[i].data() as dynamic)['thumbnail'],});
     }
 
     DocumentSnapshot userDoc =

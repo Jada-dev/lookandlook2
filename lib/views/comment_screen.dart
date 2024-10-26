@@ -33,11 +33,19 @@ class CommentScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final comment = commentController.comments[index];
                         return ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.black,
-                            backgroundImage: NetworkImage(comment.profilePhoto),
+                          leading: Container(
+                             padding: EdgeInsets.all(2.0), // Border thickness
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: buttonColor, ),
+                            child: CircleAvatar(
+                              
+                              backgroundColor: Colors.black,
+                              backgroundImage: NetworkImage(comment.profilePhoto),
+                            ),
                           ),
-                          title: Row(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "${comment.username}  ",
@@ -50,10 +58,12 @@ class CommentScreen extends StatelessWidget {
                               Text(
                                 comment.comment,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 14,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                 ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 20,
                               ),
                             ],
                           ),
@@ -65,7 +75,7 @@ class CommentScreen extends StatelessWidget {
                                 ),
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                 ),
                               ),
                               const SizedBox(
@@ -75,7 +85,7 @@ class CommentScreen extends StatelessWidget {
                                 '${comment.likes.length} likes',
                                 style: const TextStyle(
                                   fontSize: 12,
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                 ),
                               )
                             ],

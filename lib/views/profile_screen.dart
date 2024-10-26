@@ -7,6 +7,7 @@ import 'package:tiktok_tutorial/controllers/profile_controller.dart';
 import 'package:tiktok_tutorial/helper/dialog_helper.dart';
 import 'package:tiktok_tutorial/views/home_screen.dart';
 import 'package:tiktok_tutorial/views/settings_screen.dart';
+import 'package:tiktok_tutorial/views/update_image_screen.dart';
 import 'package:tiktok_tutorial/views/video_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -42,9 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.black12,
-              leading: const Icon(
-                Icons.person_add_alt_1_outlined,
-              ),
+              automaticallyImplyLeading: true,
               actions: [
                 InkWell(
                     onTap: () {
@@ -52,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         builder: (context) => SettingsScreen(),
                       ));
                     },
-                    child: Icon(Icons.more_horiz)),
+                    child: Icon(Icons.settings)),
               ],
               title: Text(
                 controller.user['name'],
@@ -181,15 +180,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: InkWell(
                                 onTap: () {
                                   if (widget.uid == authController.user.uid) {
-                                    DialogHelper.showLoading();
-                                    authController.signOut();
+                                   Navigator.push(context, MaterialPageRoute(builder: (context)=> UpdateImageScreen()));
                                   } else {
                                     controller.followUser();
                                   }
                                 },
                                 child: Text(
                                   widget.uid == authController.user.uid
-                                      ? 'Sign Out'
+                                      ? 'Edit Image'
                                       : controller.user['isFollowing']
                                           ? 'Unfollow'
                                           : 'Follow',
@@ -216,17 +214,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               crossAxisSpacing: 5,
                             ),
                             itemBuilder: (context, index) {
-                              String thumbnail =
+                              Map thumbnail =
                                   controller.user['thumbnails'][index];
                               return InkWell(
                                 onTap: () {
+                                 
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        HomeScreen(videoInitialIndex: index),
+                                        HomeScreen(videoInitialIndex:thumbnail["videoId"] ),
                                   ));
                                 },
                                 child: CachedNetworkImage(
-                                  imageUrl: thumbnail,
+                                  imageUrl: thumbnail["value"],
                                   fit: BoxFit.cover,
                                 ),
                               );

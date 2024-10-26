@@ -9,15 +9,6 @@ import 'package:tiktok_tutorial/views/profile_screen.dart';
 import 'package:tiktok_tutorial/views/search_screen.dart';
 import 'package:tiktok_tutorial/views/video_screen.dart';
 
-List pages = [
-  VideoScreen(
-    initialIndex: 0,
-  ),
-  SearchScreen(),
-  const AddVideoScreen(),
-  const ChatScreen(),
-  ProfileScreen(uid: authController.user.uid),
-];
 
 // COLORS
 const backgroundColor = Colors.white;
