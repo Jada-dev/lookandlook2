@@ -10,10 +10,14 @@ import 'package:tiktok_tutorial/views/video_screen.dart';
 import 'package:tiktok_tutorial/widgets/custom_icon.dart';
 
 class HomeScreen extends StatefulWidget {
-int index;
+  int index;
   final String? videoInitialIndex;
 
-   HomeScreen({Key? key, this.videoInitialIndex,this.index = 0,}) : super(key: key);
+  HomeScreen({
+    Key? key,
+    this.videoInitialIndex,
+    this.index = 0,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -26,28 +30,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    pageIdx =widget.index ;
-    _loadUserLocation();
-  }
-
-  Future<void> _loadUserLocation() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userLatitude = prefs.getDouble('latitude');
-      userLongitude = prefs.getDouble('longitude');
-    });
+    pageIdx = widget.index;
   }
 
   int pageIdx = 0;
   getPageMethod(int index) {
     List pages = [
       VideoScreen(
-        videoId:widget. videoInitialIndex ?? "null",
+        videoId: widget.videoInitialIndex ?? "null",
       ),
       SearchScreen(),
       const AddVideoScreen(),
-    
-      ProfileScreen(uid:  authController.user.uid),
+      ProfileScreen(uid: authController.user.uid),
     ];
     return pages[index];
   }
@@ -79,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: CustomIcon(),
               label: 'Add',
             ),
-           
             BottomNavigationBarItem(
               icon: Icon(Icons.person, size: 30),
               label: 'Profile',

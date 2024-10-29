@@ -93,8 +93,13 @@ class VideoScreen extends StatelessWidget {
       body: Obx(() {
         return PageView.builder(
           itemCount: videoController.videoList.length,
-          controller:
-              PageController(initialPage: videoId == "null" ?0: videoController.videoList.indexWhere((element) => element.id ==videoId,), viewportFraction: 1),
+          controller: PageController(
+              initialPage: videoId == "null"
+                  ? 0
+                  : videoController.videoList.indexWhere(
+                      (element) => element.id == videoId,
+                    ),
+              viewportFraction: 1),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = videoController.videoList[index];
@@ -102,6 +107,7 @@ class VideoScreen extends StatelessWidget {
               children: [
                 VideoPlayerItem(
                   videoUrl: data.videoUrl,
+                  thumbnail: data.thumbnail,
                 ),
                 Column(
                   children: [
@@ -125,10 +131,12 @@ class VideoScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                        return ProfileScreen(uid:data.uid);
-                                      },));
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) {
+                                          return ProfileScreen(uid: data.uid);
+                                        },
+                                      ));
                                     },
                                     child: Text(
                                       data.username,
@@ -232,11 +240,12 @@ class VideoScreen extends StatelessWidget {
                                       onTap: () {
                                         print("fasdfasfd");
 
-                                        Share.share('${data.videoUrl}', subject: '${data.caption}');
+                                        Share.share('${data.videoUrl}',
+                                            subject: '${data.caption}');
                                       },
                                       child: Transform(
                                         alignment: Alignment.center,
-            transform: Matrix4.rotationY(3.14), 
+                                        transform: Matrix4.rotationY(3.14),
                                         child: const Icon(
                                           Icons.reply,
                                           size: 40,
@@ -254,7 +263,6 @@ class VideoScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                               
                               ],
                             ),
                           ),

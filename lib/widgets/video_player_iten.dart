@@ -75,10 +75,10 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerItem extends StatefulWidget {
   final String videoUrl;
-  const VideoPlayerItem({
-    Key? key,
-    required this.videoUrl,
-  }) : super(key: key);
+  final String thumbnail;
+  const VideoPlayerItem(
+      {Key? key, required this.videoUrl, required this.thumbnail})
+      : super(key: key);
 
   @override
   _VideoPlayerItemState createState() => _VideoPlayerItemState();
@@ -91,19 +91,20 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
-    ..addListener(() {
-        if (videoPlayerController.value.position == videoPlayerController.value.duration) {
-          videoPlayerController.seekTo(Duration.zero);
-          videoPlayerController.play();
-        }
-      })
-      ..initialize().then((value) {
-        
-        videoPlayerController.play();
-        videoPlayerController.setVolume(1);
-        setState(() {}); // Refresh UI after video initialization
-      });
+    videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+          ..addListener(() {
+            if (videoPlayerController.value.position ==
+                videoPlayerController.value.duration) {
+              videoPlayerController.seekTo(Duration.zero);
+              videoPlayerController.play();
+            }
+          })
+          ..initialize().then((value) {
+            videoPlayerController.play();
+            videoPlayerController.setVolume(1);
+            setState(() {}); // Refresh UI after video initialization
+          });
   }
 
   @override
@@ -154,14 +155,19 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
                       ),
                     ),
                   )
-                : const Center(
-                    child:
-                        CircularProgressIndicator()), // Show loading spinner while video initializes
+                : Center(
+                    child: Image.network(widget.thumbnail),
+                  ), // Show loading spinner while video initializes
             count == 1
                 ? const Positioned(
                     right: 20,
                     top: 30,
-                    child: Icon(Icons.volume_off),
+                    child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          Icons.volume_off,
+                          color: Colors.black,
+                        )),
                   )
                 : Container(
                     color: Colors.transparent,
