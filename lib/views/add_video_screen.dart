@@ -128,14 +128,20 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_tutorial/helper/constants.dart';
 import 'package:tiktok_tutorial/views/confirm_screen.dart';
 
-class AddVideoScreen extends StatelessWidget {
+class AddVideoScreen extends StatefulWidget {
   const AddVideoScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AddVideoScreen> createState() => _AddVideoScreenState();
+}
+
+class _AddVideoScreenState extends State<AddVideoScreen> {
   Future<void> pickVideo(ImageSource src, BuildContext context) async {
     try {
       final video = await ImagePicker().pickVideo(source: src);
 
       if (video != null) {
+        print("video not null");
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ConfirmScreen(
@@ -144,6 +150,8 @@ class AddVideoScreen extends StatelessWidget {
             ),
           ),
         );
+      } else {
+        print(video);
       }
     } catch (e) {
       print('Error picking video: $e');
@@ -192,14 +200,14 @@ class AddVideoScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   padding: const EdgeInsets.all(8),
-                  child:  Icon(
+                  child: Icon(
                     Icons.photo_library, // Gallery icon
                     color: Colors.grey[700],
                     size: 30,
                   ),
                 ),
               ),
-               const SizedBox(width: 20),
+              const SizedBox(width: 20),
             ],
           ),
         ),
