@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/models/user.dart' as model;
-import 'package:tiktok_tutorial/views/home_screen.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/models/user.dart' as model;
+import 'package:looknlook/views/home_screen.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 import '../helper/dialog_helper.dart';
@@ -58,7 +58,7 @@ class AuthController extends GetxController {
       Get.snackbar('Profile Picture',
           'You have successfully selected your profile picture!');
       DialogHelper.hideLoading();
-      Get.off(() =>  HomeScreen());
+      Get.off(() => HomeScreen());
     }
   }
 
@@ -117,7 +117,7 @@ class AuthController extends GetxController {
         if (cred.additionalUserInfo!.isNewUser) {
           Get.offAll(() => const UpdateImageScreen());
         } else {
-          Get.offAll(() =>  HomeScreen());
+          Get.offAll(() => HomeScreen());
         }
       } else {
         DialogHelper.hideLoading();
@@ -137,7 +137,7 @@ class AuthController extends GetxController {
         await firebaseAuth.signInWithEmailAndPassword(
             email: email.trim(), password: password.trim());
         DialogHelper.hideLoading();
-        Get.offAll(() =>  HomeScreen());
+        Get.offAll(() => HomeScreen());
       } else {
         DialogHelper.hideLoading();
         Get.snackbar('Error Logging in', 'Please enter all the fields',

@@ -2,21 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/controllers/video_controller.dart';
-import 'package:tiktok_tutorial/views/comment_screen.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/controllers/video_controller.dart';
+import 'package:looknlook/views/comment_screen.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tiktok_tutorial/views/home_screen.dart';
-import 'package:tiktok_tutorial/views/profile_screen.dart';
-import 'package:tiktok_tutorial/widgets/circle_animation.dart';
+import 'package:looknlook/views/home_screen.dart';
+import 'package:looknlook/views/profile_screen.dart';
+import 'package:looknlook/widgets/circle_animation.dart';
 
-import 'package:tiktok_tutorial/widgets/video_player_iten.dart';
+import 'package:looknlook/widgets/video_player_iten.dart';
 
-class VideoScreen extends StatelessWidget {
+class VideoScreen extends StatefulWidget {
   final String videoId;
   VideoScreen({Key? key, required this.videoId}) : super(key: key);
 
+  @override
+  State<VideoScreen> createState() => _VideoScreenState();
+}
+
+class _VideoScreenState extends State<VideoScreen> {
   final VideoController videoController = Get.put(VideoController());
 
   final geo = GeoFlutterFire();
@@ -79,10 +84,14 @@ class VideoScreen extends StatelessWidget {
     );
   }
 
-  Future<void> saveLocation(double latitude, double longitude) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('latitude', latitude);
-    await prefs.setDouble('longitude', longitude);
+  Future<DocumentSnapshot<Object?>?> getShare(String uid) async {
+    DocumentSnapshot doc = await fireStore.collection('users').doc(uid).get();
+
+    if (doc.exists) {
+      return doc;
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -94,15 +103,16 @@ class VideoScreen extends StatelessWidget {
         return PageView.builder(
           itemCount: videoController.videoList.length,
           controller: PageController(
-              initialPage: videoId == "null"
+              initialPage: widget.videoId == "null"
                   ? 0
                   : videoController.videoList.indexWhere(
-                      (element) => element.id == videoId,
+                      (element) => element.id == widget.videoId,
                     ),
               viewportFraction: 1),
           scrollDirection: Axis.vertical,
-          itemBuilder: (context, index) {
+          itemBuilder: (scontext, index) {
             final data = videoController.videoList[index];
+
             return Stack(
               children: [
                 VideoPlayerItem(
@@ -179,10 +189,13 @@ class VideoScreen extends StatelessWidget {
                             width: 100,
                             margin: EdgeInsets.only(top: size.height / 4),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 buildProfile(
                                   data.profilePhoto,
+                                ),
+                                SizedBox(
+                                  height: 32,
                                 ),
                                 Column(
                                   children: [
@@ -208,61 +221,112 @@ class VideoScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () => Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) => CommentScreen(
-                                            id: data.id,
-                                          ),
-                                        ),
-                                      ),
-                                      child: const Icon(
-                                        Icons.comment,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 7),
-                                    Text(
-                                      data.commentCount.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ],
+                                SizedBox(
+                                  height: 16,
                                 ),
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        print("fasdfasfd");
+                                FutureBuilder<DocumentSnapshot<Object?>?>(
+                                    future: getShare(data.uid),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
 
-                                        Share.share('${data.videoUrl}',
-                                            subject: '${data.caption}');
-                                      },
-                                      child: Transform(
-                                        alignment: Alignment.center,
-                                        transform: Matrix4.rotationY(3.14),
-                                        child: const Icon(
-                                          Icons.reply,
-                                          size: 40,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 7),
-                                    Text(
-                                      data.shareCount.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                      if (snapshot.hasError) {
+                                        return Center(
+                                            child: Text("Error fetching data"));
+                                      }
+
+                                      return Column(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  if (snapshot
+                                                          .data?["comment"] ??
+                                                      true)
+                                                    Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CommentScreen(
+                                                          id: data.id,
+                                                        ),
+                                                      ),
+                                                    );
+                                                },
+                                                child: Icon(
+                                                  Icons.comment,
+                                                  size: 40,
+                                                  color: (snapshot.data?[
+                                                              "comment"] ??
+                                                          true)
+                                                      ? Colors.white
+                                                      : Colors.grey,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 7),
+                                              Text(
+                                                data.commentCount.toString(),
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: (snapshot.data?[
+                                                              "comment"] ??
+                                                          true)
+                                                      ? Colors.white
+                                                      : Colors.grey,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          Column(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  if (snapshot.data?["share"] ??
+                                                      true) {
+                                                    Share.share(
+                                                        '${data.videoUrl}',
+                                                        subject:
+                                                            '${data.caption}');
+                                                  }
+                                                },
+                                                child: Transform(
+                                                  alignment: Alignment.center,
+                                                  transform:
+                                                      Matrix4.rotationY(3.14),
+                                                  child: Icon(
+                                                    Icons.reply,
+                                                    size: 40,
+                                                    color: (snapshot.data?[
+                                                                "share"] ??
+                                                            true)
+                                                        ? Colors.white
+                                                        : Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 7),
+                                              Text(
+                                                data.shareCount.toString(),
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: (snapshot
+                                                              .data?["share"] ??
+                                                          true)
+                                                      ? Colors.white
+                                                      : Colors.grey,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    }),
                               ],
                             ),
                           ),

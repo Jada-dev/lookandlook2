@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/views/add_video_screen.dart';
-import 'package:tiktok_tutorial/views/chat_screen.dart';
-import 'package:tiktok_tutorial/views/profile_screen.dart';
-import 'package:tiktok_tutorial/views/search_screen.dart';
-import 'package:tiktok_tutorial/views/video_screen.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/views/add_video_screen.dart';
+import 'package:looknlook/views/chat_screen.dart';
+import 'package:looknlook/views/profile_screen.dart';
+import 'package:looknlook/views/search_screen.dart';
+import 'package:looknlook/views/video_screen.dart';
 
-import 'package:tiktok_tutorial/widgets/custom_icon.dart';
+import 'package:looknlook/widgets/custom_icon.dart';
 
 class HomeScreen extends StatefulWidget {
   int index;
@@ -79,6 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        body: getPageMethod(pageIdx));
+        body: Stack(children: [
+          getPageMethod(pageIdx),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "look & look",
+                style: TextStyle(fontSize: 26, color: Colors.white),
+              ),
+            ),
+          ),
+        ]));
   }
 }

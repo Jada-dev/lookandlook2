@@ -1,4 +1,4 @@
-package com.flutter.tiktok
+package com.looknlook
 
 import io.flutter.embedding.android.FlutterActivity
 

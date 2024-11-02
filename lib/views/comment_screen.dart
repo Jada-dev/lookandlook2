@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/controllers/comment_controller.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/controllers/comment_controller.dart';
 import 'package:timeago/timeago.dart' as tago;
 
 class CommentScreen extends StatelessWidget {
@@ -34,14 +34,15 @@ class CommentScreen extends StatelessWidget {
                         final comment = commentController.comments[index];
                         return ListTile(
                           leading: Container(
-                             padding: EdgeInsets.all(2.0), // Border thickness
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: buttonColor, ),
+                            padding: EdgeInsets.all(2.0), // Border thickness
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: buttonColor,
+                            ),
                             child: CircleAvatar(
-                              
                               backgroundColor: Colors.black,
-                              backgroundImage: NetworkImage(comment.profilePhoto),
+                              backgroundImage:
+                                  NetworkImage(comment.profilePhoto),
                             ),
                           ),
                           title: Column(

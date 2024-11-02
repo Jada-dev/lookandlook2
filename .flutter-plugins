@@ -47,3 +47,6 @@ video_player=/Users/nikhil/.pub-cache/hosted/pub.dev/video_player-2.9.2/
 video_player_android=/Users/nikhil/.pub-cache/hosted/pub.dev/video_player_android-2.7.1/
 video_player_avfoundation=/Users/nikhil/.pub-cache/hosted/pub.dev/video_player_avfoundation-2.6.2/
 video_player_web=/Users/nikhil/.pub-cache/hosted/pub.dev/video_player_web-2.3.2/
+webview_flutter=/Users/nikhil/.pub-cache/hosted/pub.dev/webview_flutter-4.10.0/
+webview_flutter_android=/Users/nikhil/.pub-cache/hosted/pub.dev/webview_flutter_android-4.0.0/
+webview_flutter_wkwebview=/Users/nikhil/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.16.0/

@@ -2,8 +2,8 @@
 
 // import 'package:flutter/material.dart';
 // import 'package:image_picker/image_picker.dart';
-// import 'package:tiktok_tutorial/helper/constants.dart';
-// import 'package:tiktok_tutorial/views/confirm_screen.dart';
+// import 'package:looknlook/helper/constants.dart';
+// import 'package:looknlook/views/confirm_screen.dart';
 
 // class AddVideoScreen extends StatelessWidget {
 //   const AddVideoScreen({Key? key}) : super(key: key);
@@ -125,8 +125,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/views/confirm_screen.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/views/confirm_screen.dart';
 
 class AddVideoScreen extends StatefulWidget {
   const AddVideoScreen({Key? key}) : super(key: key);

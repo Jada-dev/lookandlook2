@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/views/update_image_screen.dart';
+import 'package:looknlook/views/update_image_screen.dart';
 
 import '../helper/constants.dart';
 import 'home_screen.dart';
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
       if (firebaseAuth.currentUser != null) {
-        Get.offAll(() =>  HomeScreen());
+        Get.offAll(() => HomeScreen());
       } else {
         Get.offAll(() => LoginScreen());
       }

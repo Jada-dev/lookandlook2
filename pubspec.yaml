@@ -1,5 +1,5 @@
-name: tiktok_tutorial
-description: A new Flutter project.
+name: looknlook
+description: let's keep look&loonk fun and original...
 
 publish_to: "none"
 
@@ -30,6 +30,7 @@ dependencies:
   geolocator: ^9.0.2
   share_plus: ^7.2.2
   flutter_launcher_icons: ^0.14.1
+  webview_flutter: ^4.10.0
 
 dev_dependencies:
 

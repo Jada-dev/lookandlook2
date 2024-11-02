@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
-import 'package:tiktok_tutorial/controllers/profile_controller.dart';
-import 'package:tiktok_tutorial/helper/dialog_helper.dart';
-import 'package:tiktok_tutorial/views/home_screen.dart';
-import 'package:tiktok_tutorial/views/settings_screen.dart';
-import 'package:tiktok_tutorial/views/update_image_screen.dart';
-import 'package:tiktok_tutorial/views/video_screen.dart';
+import 'package:looknlook/helper/constants.dart';
+import 'package:looknlook/controllers/profile_controller.dart';
+import 'package:looknlook/helper/dialog_helper.dart';
+import 'package:looknlook/views/home_screen.dart';
+import 'package:looknlook/views/settings_screen.dart';
+import 'package:looknlook/views/update_image_screen.dart';
+import 'package:looknlook/views/video_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;
@@ -180,7 +180,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: InkWell(
                                 onTap: () {
                                   if (widget.uid == authController.user.uid) {
-                                   Navigator.push(context, MaterialPageRoute(builder: (context)=> UpdateImageScreen()));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UpdateImageScreen()));
                                   } else {
                                     controller.followUser();
                                   }
@@ -218,10 +222,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   controller.user['thumbnails'][index];
                               return InkWell(
                                 onTap: () {
-                                 
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        HomeScreen(videoInitialIndex:thumbnail["videoId"] ),
+                                    builder: (context) => HomeScreen(
+                                        videoInitialIndex:
+                                            thumbnail["videoId"]),
                                   ));
                                 },
                                 child: CachedNetworkImage(

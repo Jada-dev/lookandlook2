@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/helper/constants.dart';
+import 'package:looknlook/helper/constants.dart';
 
 class ProfileController extends GetxController {
   final Rx<Map<String, dynamic>> _user = Rx<Map<String, dynamic>>({});
@@ -14,14 +14,17 @@ class ProfileController extends GetxController {
   }
 
   getUserData() async {
-    List<Map<String,String>> thumbnails = [];
+    List<Map<String, String>> thumbnails = [];
     var myVideos = await fireStore
         .collection('videos')
         .where('uid', isEqualTo: _uid.value)
         .get();
 
     for (int i = 0; i < myVideos.docs.length; i++) {
-      thumbnails.add({"videoId":(myVideos.docs[i].data() as dynamic)["id"],"value":(myVideos.docs[i].data() as dynamic)['thumbnail'],});
+      thumbnails.add({
+        "videoId": (myVideos.docs[i].data() as dynamic)["id"],
+        "value": (myVideos.docs[i].data() as dynamic)['thumbnail'],
+      });
     }
 
     DocumentSnapshot userDoc =

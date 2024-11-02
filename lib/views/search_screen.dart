@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tiktok_tutorial/controllers/search_controller.dart' as search;
+import 'package:looknlook/controllers/search_controller.dart' as search;
 import 'package:get/get.dart';
-import 'package:tiktok_tutorial/models/user.dart';
-import 'package:tiktok_tutorial/views/profile_screen.dart';
+import 'package:looknlook/models/user.dart';
+import 'package:looknlook/views/profile_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class SearchScreen extends StatelessWidget {
         body: searchController.searchedUsers.isEmpty
             ? const Center(
                 child: Text(
-                  'Search for users!',
+                  'Search Locations',
                   style: TextStyle(
                     fontSize: 25,
                     color: Colors.black,
