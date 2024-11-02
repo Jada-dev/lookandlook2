@@ -19,6 +19,7 @@ dependencies:
   firebase_storage: ^11.0.14
   get: ^4.6.5
   image_picker: ^1.1.2
+  icons_launcher: ^3.0.0
   timeago: ^3.1.1
   video_compress: ^3.1.2
   video_player: ^2.5.3
@@ -33,6 +34,14 @@ dependencies:
   webview_flutter: ^4.10.0
 
 dev_dependencies:
+
+icons_launcher:
+  image_path: "assets/images/logo.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 flutter:
   uses-material-design: true
